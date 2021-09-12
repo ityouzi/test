@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.dao.SysDeptMapper">
+  <resultMap id="BaseResultMap" type="com.sample.SysDept">
+    <!--@mbg.generated-->
+    <!--@Table sys_dept-->
+    <id column="id" property="id" />
+    <result column="num" property="num" />
+    <result column="pid" property="pid" />
+    <result column="pids" property="pids" />
+    <result column="simplename" property="simplename" />
+    <result column="fullname" property="fullname" />
+    <result column="tips" property="tips" />
+    <result column="version" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, num, pid, pids, simplename, fullname, tips, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dept
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from sys_dept
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.sample.SysDept" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_dept (num, pid, pids, simplename, fullname, tips, version)
+    values (#{num}, #{pid}, #{pids}, #{simplename}, #{fullname}, #{tips}, #{version})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.sample.SysDept" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="num != null">
+        num,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="pids != null">
+        pids,
+      </if>
+      <if test="simplename != null">
+        simplename,
+      </if>
+      <if test="fullname != null">
+        fullname,
+      </if>
+      <if test="tips != null">
+        tips,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="num != null">
+        #{num},
+      </if>
+      <if test="pid != null">
+        #{pid},
+      </if>
+      <if test="pids != null">
+        #{pids},
+      </if>
+      <if test="simplename != null">
+        #{simplename},
+      </if>
+      <if test="fullname != null">
+        #{fullname},
+      </if>
+      <if test="tips != null">
+        #{tips},
+      </if>
+      <if test="version != null">
+        #{version},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sample.SysDept">
+    <!--@mbg.generated-->
+    update sys_dept
+    <set>
+      <if test="num != null">
+        num = #{num},
+      </if>
+      <if test="pid != null">
+        pid = #{pid},
+      </if>
+      <if test="pids != null">
+        pids = #{pids},
+      </if>
+      <if test="simplename != null">
+        simplename = #{simplename},
+      </if>
+      <if test="fullname != null">
+        fullname = #{fullname},
+      </if>
+      <if test="tips != null">
+        tips = #{tips},
+      </if>
+      <if test="version != null">
+        version = #{version},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sample.SysDept">
+    <!--@mbg.generated-->
+    update sys_dept
+    set num = #{num},
+      pid = #{pid},
+      pids = #{pids},
+      simplename = #{simplename},
+      fullname = #{fullname},
+      tips = #{tips},
+      version = #{version}
+    where id = #{id}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update sys_dept
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="num = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.num}
+        </foreach>
+      </trim>
+      <trim prefix="pid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.pid}
+        </foreach>
+      </trim>
+      <trim prefix="pids = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.pids}
+        </foreach>
+      </trim>
+      <trim prefix="simplename = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.simplename}
+        </foreach>
+      </trim>
+      <trim prefix="fullname = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.fullname}
+        </foreach>
+      </trim>
+      <trim prefix="tips = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.tips}
+        </foreach>
+      </trim>
+      <trim prefix="version = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.version}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="map" >
+    <!--@mbg.generated-->
+    insert into sys_dept
+    (num, pid, pids, simplename, fullname, tips, version)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.num}, #{item.pid}, #{item.pids}, #{item.simplename}, #{item.fullname}, #{item.tips}, 
+        #{item.version})
+    </foreach>
+  </insert>
+</mapper>

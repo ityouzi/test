@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.dao.TbDeptorderMapper">
+  <resultMap id="BaseResultMap" type="com.sample.TbDeptorder">
+    <!--@mbg.generated-->
+    <!--@Table tb_deptorder-->
+    <id column="dept_id" property="deptId" />
+    <result column="dept_name" property="deptName" />
+    <result column="dept_code" property="deptCode" />
+    <result column="hostpital_num" property="hostpitalNum" />
+    <result column="hostpital_code" property="hostpitalCode" />
+    <result column="p_name" property="pName" />
+    <result column="p_sex" property="pSex" />
+    <result column="p_age" property="pAge" />
+    <result column="p_idcard" property="pIdcard" />
+    <result column="p_photo" property="pPhoto" />
+    <result column="status" property="status" />
+    <result column="p_telphone" property="pTelphone" />
+    <result column="record_date" property="recordDate" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    dept_id, dept_name, dept_code, hostpital_num, hostpital_code, p_name, p_sex, p_age, 
+    p_idcard, p_photo, `status`, p_telphone, record_date, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_deptorder
+    where dept_id = #{deptId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from tb_deptorder
+    where dept_id = #{deptId}
+  </delete>
+  <insert id="insert" keyColumn="dept_id" keyProperty="deptId" parameterType="com.sample.TbDeptorder" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_deptorder (dept_name, dept_code, hostpital_num, hostpital_code, p_name, p_sex, 
+      p_age, p_idcard, p_photo, `status`, p_telphone, record_date, create_time, 
+      update_time)
+    values (#{deptName}, #{deptCode}, #{hostpitalNum}, #{hostpitalCode}, #{pName}, #{pSex}, 
+      #{pAge}, #{pIdcard}, #{pPhoto}, #{status}, #{pTelphone}, #{recordDate}, #{createTime}, 
+      #{updateTime})
+  </insert>
+  <insert id="insertSelective" keyColumn="dept_id" keyProperty="deptId" parameterType="com.sample.TbDeptorder" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_deptorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+      <if test="hostpitalNum != null">
+        hostpital_num,
+      </if>
+      <if test="hostpitalCode != null">
+        hostpital_code,
+      </if>
+      <if test="pName != null">
+        p_name,
+      </if>
+      <if test="pSex != null">
+        p_sex,
+      </if>
+      <if test="pAge != null">
+        p_age,
+      </if>
+      <if test="pIdcard != null">
+        p_idcard,
+      </if>
+      <if test="pPhoto != null">
+        p_photo,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="pTelphone != null">
+        p_telphone,
+      </if>
+      <if test="recordDate != null">
+        record_date,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deptName != null">
+        #{deptName},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode},
+      </if>
+      <if test="hostpitalNum != null">
+        #{hostpitalNum},
+      </if>
+      <if test="hostpitalCode != null">
+        #{hostpitalCode},
+      </if>
+      <if test="pName != null">
+        #{pName},
+      </if>
+      <if test="pSex != null">
+        #{pSex},
+      </if>
+      <if test="pAge != null">
+        #{pAge},
+      </if>
+      <if test="pIdcard != null">
+        #{pIdcard},
+      </if>
+      <if test="pPhoto != null">
+        #{pPhoto},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="pTelphone != null">
+        #{pTelphone},
+      </if>
+      <if test="recordDate != null">
+        #{recordDate},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sample.TbDeptorder">
+    <!--@mbg.generated-->
+    update tb_deptorder
+    <set>
+      <if test="deptName != null">
+        dept_name = #{deptName},
+      </if>
+      <if test="deptCode != null">
+        dept_code = #{deptCode},
+      </if>
+      <if test="hostpitalNum != null">
+        hostpital_num = #{hostpitalNum},
+      </if>
+      <if test="hostpitalCode != null">
+        hostpital_code = #{hostpitalCode},
+      </if>
+      <if test="pName != null">
+        p_name = #{pName},
+      </if>
+      <if test="pSex != null">
+        p_sex = #{pSex},
+      </if>
+      <if test="pAge != null">
+        p_age = #{pAge},
+      </if>
+      <if test="pIdcard != null">
+        p_idcard = #{pIdcard},
+      </if>
+      <if test="pPhoto != null">
+        p_photo = #{pPhoto},
+      </if>
+      <if test="status != null">
+        `status` = #{status},
+      </if>
+      <if test="pTelphone != null">
+        p_telphone = #{pTelphone},
+      </if>
+      <if test="recordDate != null">
+        record_date = #{recordDate},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+    </set>
+    where dept_id = #{deptId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sample.TbDeptorder">
+    <!--@mbg.generated-->
+    update tb_deptorder
+    set dept_name = #{deptName},
+      dept_code = #{deptCode},
+      hostpital_num = #{hostpitalNum},
+      hostpital_code = #{hostpitalCode},
+      p_name = #{pName},
+      p_sex = #{pSex},
+      p_age = #{pAge},
+      p_idcard = #{pIdcard},
+      p_photo = #{pPhoto},
+      `status` = #{status},
+      p_telphone = #{pTelphone},
+      record_date = #{recordDate},
+      create_time = #{createTime},
+      update_time = #{updateTime}
+    where dept_id = #{deptId}
+  </update>
+</mapper>

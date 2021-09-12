@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.dao.SysRelationMapper">
+  <resultMap id="BaseResultMap" type="com.sample.SysRelation">
+    <!--@mbg.generated-->
+    <!--@Table sys_relation-->
+    <id column="id" property="id" />
+    <result column="menuid" property="menuid" />
+    <result column="roleid" property="roleid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, menuid, roleid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sys_relation
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from sys_relation
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.sample.SysRelation" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_relation (menuid, roleid)
+    values (#{menuid}, #{roleid})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.sample.SysRelation" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuid != null">
+        menuid,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuid != null">
+        #{menuid},
+      </if>
+      <if test="roleid != null">
+        #{roleid},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sample.SysRelation">
+    <!--@mbg.generated-->
+    update sys_relation
+    <set>
+      <if test="menuid != null">
+        menuid = #{menuid},
+      </if>
+      <if test="roleid != null">
+        roleid = #{roleid},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sample.SysRelation">
+    <!--@mbg.generated-->
+    update sys_relation
+    set menuid = #{menuid},
+      roleid = #{roleid}
+    where id = #{id}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update sys_relation
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="menuid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.menuid}
+        </foreach>
+      </trim>
+      <trim prefix="roleid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id} then #{item.roleid}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id}
+    </foreach>
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update sys_relation
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="menuid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.menuid != null">
+            when id = #{item.id} then #{item.menuid}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="roleid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.roleid != null">
+            when id = #{item.id} then #{item.roleid}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_relation
+    (menuid, roleid)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.menuid}, #{item.roleid})
+    </foreach>
+  </insert>
+</mapper>
