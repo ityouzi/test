@@ -1,50 +1,156 @@
 package org.example;
 
+import cn.hutool.core.util.ObjectUtil;
+import org.apache.commons.lang3.time.DateFormatUtils;
+
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
+
 /**
  * @author lizhen created on 2021-06-15 17:43
  */
 public class xx {
 
-//    @Override
-//    public void subscribe(String parentUserId, String corpId) {
-//        JsonRootBeanParent rootBeanParent = qyWechatManager.queryParentUserId(parentUserId, corpId);
-//        Parent parent = rootBeanParent.getParent();
-//        log.info("家长订阅状态！is_subscribe={}", parent.getIs_subscribe());
-//
-//        // 未订阅
-//        if (ParentIsSubscribeEnum.NOT_SBSCRIBE.getStatus().equals(parent.getIs_subscribe())){
-//            log.info("该家长未订阅！parentUserId={}",parent.getParent_userid());
-//            return;
-//        }
-//
-//        // 已订阅
-//        else{
-//            // 1.创建家长信息
-//
-//            // 1.1查询本地是否存在该家长
-//
-//            // 1.2创建家长信息
-//
-//            // 1.3更新学生和家长关系
-//            List<StudentParentRelation> relations = new ArrayList<>();
-//            List<StudentParentRelation> relationList = studentParentRelationService.queryRelationByParentUserId(parent.getParent_userid());
-//            relationList.forEach(relation->{
-//                relation.setIsSubscribe(relation.getIsSubscribe());
-//                relation.setParentId(家长ID);
-//
-//                relations.add(relation);
-//
-//            });
-//
-//            // 2.批量更新学生和家长关系
-//            studentParentRelationService.batchRelation(relations);
-//
-//
-//            log.info("该家长已订阅！parentUserId={}",parent.getParent_userid());
-//            return;
-//        }
+    public static List<String> getTimeInterval() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        // 今天是一周中的第几天
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK );
+
+        if (calendar.getFirstDayOfWeek() == Calendar.SUNDAY) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        // 计算一周开始的日期
+        calendar.add(Calendar.DAY_OF_MONTH, -dayOfWeek);
+        List<String> all = new ArrayList<>();
+        for (int i = 1; i <= Calendar.DAY_OF_WEEK; i++) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            String format = sdf.format(calendar.getTime());
+            all.add(format);
+        }
+        return all;
     }
 
+    public static Map<String,String> getWeekDate() {
+        Map<String,String> map = new HashMap();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar cal = Calendar.getInstance();
+        // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        // 获得当前日期是一个星期的第几天
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if(dayWeek==1){
+            dayWeek = 8;
+        }
+
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - dayWeek);// 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        Date mondayDate = cal.getTime();
+        String weekBegin = sdf.format(mondayDate);
+
+        cal.add(Calendar.DATE, 4 +cal.getFirstDayOfWeek());
+        Date sundayDate = cal.getTime();
+        String weekEnd = sdf.format(sundayDate);
+
+        map.put("mondayDate", weekBegin);
+        map.put("sundayDate", weekEnd);
+        return map;
+    }
+
+
+    public static Map<String, Object> getWeekOfDay(String date) throws ParseException {
+        Map<String, Object> map = new HashMap<>();
+        Date parse;
+        String dateTime;
+        if (ObjectUtil.isNotEmpty(date)){
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            parse = format.parse(date);
+            dateTime = date;
+        }else {
+            parse = new Date();
+            dateTime = DateFormatUtils.format(parse, "yyyy-MM-dd");
+        }
+        String[] weekDays = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(parse);
+        int i = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        if (i < 0){
+            i = 0;
+        }
+        map.put("day", dateTime);
+        map.put("weekDay", weekDays[i]);
+        return map;
+    }
+
+    public static void main(String[] args) throws ParseException {
+        String domain = "https://testparapi.potterstar.com";
+        String encode = URLEncoder.encode(domain);
+        System.out.println(encode);
+
+//        String week = "周一,周二,周三,周四,周五,周六,周日";
+
+//        Date date = new Date();
+//        SimpleDateFormat toformat = new SimpleDateFormat("EEEE");
+//        String format1 = toformat.format(date);
+//        System.out.println(format1);
+
+        String time = "2021-09-02";
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = format.parse(time);
+        Instant instant = parse.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDate localDate = instant.atZone(zoneId).toLocalDate();
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        String weekDay = "";
+        switch (dayOfWeek){
+            case MONDAY:
+                weekDay = "周一";
+                break;
+            case TUESDAY:
+                weekDay = "周二";
+                break;
+            case WEDNESDAY:
+                weekDay = "周三";
+                break;
+            case THURSDAY:
+                weekDay = "周四";
+                break;
+            case FRIDAY:
+                weekDay = "周五";
+                break;
+            case SATURDAY:
+                weekDay = "周六";
+                break;
+            case SUNDAY:
+                weekDay = "周日";
+                break;
+        }
+        System.out.println(weekDay);
+
+
+        System.out.println(getWeekOfDay(null));
+
+        List<String> timeInterval = getTimeInterval();
+        timeInterval.forEach(a ->{
+            try {
+                System.out.println(getWeekOfDay(a));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+
+        System.out.println();
+
+    }
+
+}
 
 
 
