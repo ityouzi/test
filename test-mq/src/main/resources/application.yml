@@ -1,0 +1,19 @@
+server:
+  port: 8888
+
+spring:
+  rabbitmq:
+    host: 192.168.31.219
+    port: 5672
+    username: eduarchive_local
+    password: eduarchive@123
+    virtual-host: eduarchivelocal
+    listener:
+      simple:
+        acknowledge-mode: auto      # 自动ack
+        retry:
+          enabled: true             # 开启重试
+          max-attempts: 5           # 重试次数
+          max-interval: 10000       # 重试最大间隔事件
+          initial-interval: 2000    # 重试初始间隔时间 2秒
+          multiplier: 2             # 间隔时间乘子，间隔时间*乘子=下一次的间隔时间，最大不能超过设置的最大间隔时间
